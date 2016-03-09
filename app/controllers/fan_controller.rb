@@ -2,7 +2,11 @@ class FanController < ApplicationController
 
 
   get '/login' do
-    erb :'fans/login'
+    if logged_in
+      redirect '/home'
+    else
+      erb :'fans/login'
+    end
   end
 
   post '/login' do
@@ -11,7 +15,7 @@ class FanController < ApplicationController
       session[:id] = fan.id
       redirect '/home'
     else
-      erb :'/fans/login', :locals=>{:message=>"Nope. Try again or sign up."}
+      erb :'/index', :locals=>{:message=>"Nope. Try again or sign up."}
     end
   end
 
@@ -31,7 +35,7 @@ class FanController < ApplicationController
       fan = Fan.new(params)
       if fan.save
         session[:id] = fan.id
-        redirect '/home'
+        redirect "fans/#{fan.id}/collection"
       end
     end
     
@@ -39,11 +43,33 @@ class FanController < ApplicationController
 
   get '/home' do
     if logged_in
-      erb :home
+      erb :'fans/home'
     else
-      redirect '/login'
+      redirect '/'
     end
   end  
+
+  get '/collection' do
+    if logged_in
+      redirect "/fans/#{current_user.id}/collection"
+    else
+      erb :'fans/login', :locals=>{:message=>"You gotta be logged for that, bub."}
+    end
+  end
+
+  get '/fans/:id/collection' do
+    if logged_in
+      erb :'fans/home'
+    else
+      erb :'fans/login', :locals=>{:message=>"You gotta be logged for that, bub."}
+    end
+  end
+
+
+  get '/logout' do
+    session.clear
+    redirect '/'
+  end
 
 
 

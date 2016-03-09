@@ -9,13 +9,13 @@
     </style>
 </head>
 <body>
-
-  <button name="home"><a href="/home">Take me home</a></button>
-
-
+  
   <%= yield %>
 
+  <button name="home"><a href="/home">Take me home</a></button>
+  <% if logged_in %>
+    <button type="submit" name="logout"><a href="/logout">Log me out</a></button>
+  <% end %>
 
-  
 </body>
 </html>

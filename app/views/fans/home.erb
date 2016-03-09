@@ -1,1 +1,27 @@
-<h1>Here's yer crap</h1>
+<h1>Here's yer crap, <%= current_user.name%></h1>
+
+<% if current_user.albums.empty? %>
+  <h3><a href="/albums/new">Get some damn records</a></h3>
+<% end %>
+
+<% unless current_user.albums.empty? %>
+<table>
+  <tr>
+    <th>Album</th>
+    <th>Artist</th>
+    <th>Release date</th>
+    <th>Last spin</th>
+  </tr>
+  <% current_user.albums.each do |a| %>
+  <tr>
+    <td><%=a.title%></td>
+    <td><%=a.artist.name%></td>
+    <td><%=a.rel_date%></td>
+    <td><%=a.spins.last%></td>
+  </tr>
+
+  <% end %>
+<% end %>
+
+
+</table>
