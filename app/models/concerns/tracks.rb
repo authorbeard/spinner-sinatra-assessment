@@ -2,7 +2,7 @@ module Tracks
   extend ActiveSupport::Concern
 
   @agent=Mechanize.new
-  @search=@agent.get("http://www.discogs.com").form(id: "site_search")
+  # @search=@agent.get("http://www.discogs.com").form(id: "site_search")
 
   
 

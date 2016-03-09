@@ -11,14 +11,9 @@ class AlbumController < ApplicationController
   end
 
   post '/albums' do
-binding.pry
-
 
     if params["alb_title"].empty? 
-  binding.pry
-    
       redirect "/albums/new"
-    
     else
       album=Album.create(title: params["alb_title"])
       
@@ -30,29 +25,23 @@ binding.pry
 
       album.rel_date=params["rel_date"]
       album.alb_url=params["alb_url"]
-      # album.save
 
       if logged_in 
         album.fans << Fan.find(session[:id])
       end
        album.save
        redirect "/albums/#{album.id}"
-    end
-binding.pry
-   
-  
+    end 
   end
 
   get "/all-albums" do
     if logged_in
       @fan=Fan.find(session[:id])
     end
-# binding.pry
-    @albums=Album.all
+    @albums=Album.all.sort_by{|a| a.artist}
     erb :'albums/all'
   end
 
-  
 
   get '/albums/:id' do
     @album=Album.find(params[:id])
@@ -60,10 +49,9 @@ binding.pry
   end
 
   get '/albums/:id/add' do
-binding.pry
     if logged_in
       current_user.albums << Album.find(params[:id])
-# binding.pry
+      redirect "/all-albums"
     else 
       erb :'fans/login', :locals=>{:message=>"You gotta be logged for that, bub."}
     end

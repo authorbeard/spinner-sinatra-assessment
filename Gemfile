@@ -12,6 +12,8 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'mechanize'
+gem 'nokogiri'
+
 
 # group :test do
 #   gem 'rspec'
