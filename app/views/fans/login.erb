@@ -1,0 +1,18 @@
+<h3>I don't know you ... OR IS IT?</h3>
+
+<% unless locals.empty? %>
+  <%= message %>
+<% end %>
+<br></br>
+
+<form action="/login" method="post"> 
+
+  <label>username:</label>
+  <input type="text" name="username">
+  <br></br>
+  <label>password:</label>
+  <input type="text" name="password">
+  <br></br>
+  <button type="submit" name="login">Log me in!</button>
+
+</form>

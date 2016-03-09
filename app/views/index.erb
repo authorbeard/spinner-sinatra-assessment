@@ -1,0 +1,8 @@
+<h1>Spinner!</h1>
+
+<% if logged_in %>
+    <button type="submit" name="logout">Log me out</button>
+  <% else %>
+    <button type="submit" name="login"><a href="/login">Log me in</a></button>
+    <button type="submit" name="login"><a href="/signup">Sign me up!</button>
+  <% end %>
