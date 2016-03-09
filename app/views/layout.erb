@@ -12,6 +12,8 @@
   
   <%= yield %>
 
+  <button name="new"><a href="/albums/new">New Album</a></button>
+  <button name="all"><a href="/all-albums">All albums</a></button>
   <button name="home"><a href="/home">Take me home</a></button>
   <% if logged_in %>
     <button type="submit" name="logout"><a href="/logout">Log me out</a></button>

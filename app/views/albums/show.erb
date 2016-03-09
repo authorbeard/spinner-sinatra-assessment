@@ -1,1 +1,42 @@
-<h1>ALBUM DETAILS</h1>
+<h1><%=@album.title%></h1>
+
+<h2>Artist: <%=@album.artist.name%></h2>
+
+<% if @album.songs.empty? %>
+  <h3><a href="/albums/get-songs">Get this album's tracks</a><h3>
+<% else %>
+  <h3>Songs: </h3>
+  <% @album.songs.each_with_index do |s, i| %>
+    <ul>
+      <li><h3><%= "#{i+1}. #{s.title}"%></h3>
+    </ul>
+  <% end %>
+<% end %>
+
+<% if @album.spins.empty? %>
+  <button><a href="/albums/<%=@album.id%>/spin">Spin it!</button>
+<% elsif logged_in %>
+  <table layout="fixed" width=50%>
+    <tr align="left">
+      <th><h4>spin count</h4></th>
+      <th>Last Spun: </th>
+    </tr>
+    <tr>
+      <td><%=@album.spins.count%></td>
+      <td><%=@album.spins.last.created_at.localtime.strftime("%e %b %Y")%></td>
+    </tr>
+  </table>
+  <br></br>
+  <% if logged_in %>
+    <button><a href="/albums/<%=@album.id%>/spin">Spin it again!</a></button>
+  
+    <button><a href="/albums/<%=@album.id%>/edit">Edit album</a></button>
+  <% end %>
+<% end %>
+
+
+
+ 
+
+
+

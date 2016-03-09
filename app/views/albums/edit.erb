@@ -1,1 +1,41 @@
-<h1>EDIT ALBUM</h1>
+<h1>EDIT <%=@album.title.upcase%></h1>
+
+
+<form action="/albums/<%=@album.id%>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <label>Album Title:</label>
+  <input type="text" name="album_title" value="<%=@album.title%>">
+
+
+  <br></br>
+  <label>Album Artist:</label>
+  <input type="text" id="artist_<%=@album.artist.id%>" name="artist_name" value="<%=@album.artist.name%>">
+
+    <h5>pick a new artist:</h5>
+      <% Artist.all.each do |a| %>
+        <input type="checkbox" name="chg_artist" value="<%=a.id%>"><%=a.name%></input>
+      <% end %>
+    <h5>add an artist (WARNING: THIS OVERRIDE ALL OTHER OPTIONS):</h5><input type="text" name="new_artist"></input>
+
+  <br></br>
+  <label>Album tracks:</label>
+    <% if @album.songs.empty? %>
+      <h3><a href="/albums/get-songs">Get this album's tracks</a><h3>
+    <% else %>
+      <% @album.songs.each do |s| %>
+        <input type="checkbox" name="songs[]" value="<%=s.id%>" <%='checked' if @album.songs.include?(s)%>><%=s.title%></input>
+      <% end %>
+    <% end %>
+
+    <h5>Add a new track?</h5>
+    <input type="text" name="new_song"></input>
+
+  <br></br>
+  <button type="submit" name="edit_album">Update</button>
+</form>
+
+  <form action="/albums/<%=@album.id%>/delete" method="post">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <button type="submit" name="delete_album">Delete</button>
+  </form>
+<br></br>

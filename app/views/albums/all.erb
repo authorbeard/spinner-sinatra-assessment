@@ -15,7 +15,7 @@
     </tr>
     <% @albums.each do |a| %>
     <tr align="left">
-      <td><%=a.title%></td>
+      <td><a href="/albums/<%=a.id%>"><%=a.title%></td>
       <td><% if a.artist.name==nil %>
           <button><a href="albums/<%=a.id%>/edit">add</a></button>
           <% else %>
