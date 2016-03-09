@@ -13,7 +13,7 @@ require_relative 'song'
 @agent=Mechanize.new
 @search=@agent.get("http://www.discogs.com").form(id: "site_search")
 
-@lib=CSV.read("authorbeard.csv", {headers: true, header_converters: :symbol})
+@lib=CSV.read("../test/authorbeard.csv", {headers: true, header_converters: :symbol})
 
 
 def seed

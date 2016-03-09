@@ -5,23 +5,25 @@
 <% end %>
 
 <% unless current_user.albums.empty? %>
-<table>
-  <tr>
-    <th>Album</th>
-    <th>Artist</th>
-    <th>Release date</th>
-    <th>Last spin</th>
-  </tr>
-  <% current_user.albums.each do |a| %>
-  <tr>
-    <td><%=a.title%></td>
-    <td><%=a.artist.name%></td>
-    <td><%=a.rel_date%></td>
-    <td><%=a.spins.last%></td>
-  </tr>
-
-  <% end %>
+  <table layout="fixed" width=100%>
+    <tr align="left">
+      <th>Album</th>
+      <th>Artist</th>
+      <th>Release date</th>
+      <th>Last spin</th>
+    </tr>
+    <% current_user.albums.each do |a| %>
+    <tr>
+      <td><%=a.title%></td>
+      <td><%=a.artist.name%></td>
+      <td><%=a.rel_date%></td>
+      <td><% if a.spins.empty? %>
+            never played
+          <% else %>  
+            <%=a.spins.last.created_at.localtime%>
+          <% end %></td>
+      <td><button><a href="album/<%=a.id%>/spin">Spin it!</a></button></td>
+    </tr>
+    <% end %>
+  </table>
 <% end %>
-
-
-</table>
