@@ -16,10 +16,10 @@
     <% @albums.each do |a| %>
     <tr align="left">
       <td><a href="/albums/<%=a.id%>"><%=a.title%></td>
-      <td><% if a.artist.name==nil %>
-          <button><a href="albums/<%=a.id%>/edit">add</a></button>
+      <td><% if a.artist==nil %>
+            <button><a href="albums/<%=a.id%>/edit">add</a></button>
           <% else %>
-          <%=a.artist.name%></td>
+            <%=a.artist.name%></td>
           <% end %></td>
       <td><% if a.rel_date==nil %>
           <button><a href="albums/<%=a.id%>/edit">add</a></button>

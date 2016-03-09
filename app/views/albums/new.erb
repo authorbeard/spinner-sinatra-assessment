@@ -1,1 +1,26 @@
-<h1>NEW RECORDS HOLY SHIT THAT'S AWESOME</h1>
+<% if locals.empty? %>
+  <h1>NEW RECORDS HOLY SHIT THAT'S AWESOME</h1>
+<% else %>
+  <h2><%= message %><h2>
+<% end %>
+
+<form action="/albums" method="post">
+
+  <h4>Title (required): <input type="text" name="alb_title"></input></h4>
+
+  <h4>Artist: (check one, or create a new one below)</h4>
+    <% Artist.all.each do |a| %>
+      <input type="checkbox" name="alb_artist" value="<%=a.id%>"><%=a.name%></input>      
+    <% end %>
+    <br></br>
+    <input type="text" name="new_artist" value=""placeholder="Create new artist"></input>
+
+  <h4>Released: </h4>
+    <input type="integer" name="rel_date"></input>
+
+  <h4>Discogs URL:</h4>
+    <input type="text" name="alb_url"></input>
+  <br></br>
+
+<button type="submit" name="create album">CREATE!</button>
+</form>

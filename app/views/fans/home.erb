@@ -15,14 +15,18 @@
     <% current_user.albums.each do |a| %>
     <tr>
       <td><a href='/albums/<%=a.id%>'><%=a.title%></a></td>
-      <td><a href='/artists/<%=a.artist_id%>'><%=a.artist.name%></a></td>
+      <td><% if a.artist==nil%>
+              <button><a href="albums/<%=a.id%>/edit">add</a></button>
+          <% else %>
+            <%=a.artist.name%></a>
+          <% end %></td>
       <td><%=a.rel_date%></td>
       <td><% if a.spins.empty? %>
             never played
           <% else %>  
             <%=a.spins.last.created_at.localtime.strftime("%e %b %Y")%>
           <% end %></td>
-      <td><button><a href="album/<%=a.id%>/spin">Spin it!</a></button></td>
+      <td><button><a href="albums/<%=a.id%>/spin">Spin it!</a></button></td>
     </tr>
     <% end %>
   </table>
