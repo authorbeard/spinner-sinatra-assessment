@@ -1,7 +1,7 @@
 <h1>Here's yer crap, <%= current_user.name%></h1>
 
 <% if current_user.albums.empty? %>
-  <h3><a href="/albums/new">Get some damn records</a></h3>
+  <h3><a href="/all-albums">Get some damn records</a></h3>
 <% end %>
 
 <% unless current_user.albums.empty? %>

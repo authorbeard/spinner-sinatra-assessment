@@ -1,6 +1,19 @@
 class AlbumController < ApplicationController
 
  
+  get "/all-albums" do
+    if logged_in
+      @fan=Fan.find(session[:id])
+    end
+    @albums=Album.all.sort_by{|a| a.artist}
+    erb :'albums/all'
+  end
+  
+  get '/get-tracks/:id' do
+    @album=Album.find(params[:id])
+    @album.get_tracks
+    redirect "albums/#{@album.id}"
+  end
 
   get "/albums/new" do
     if logged_in
@@ -32,14 +45,6 @@ class AlbumController < ApplicationController
        album.save
        redirect "/albums/#{album.id}"
     end 
-  end
-
-  get "/all-albums" do
-    if logged_in
-      @fan=Fan.find(session[:id])
-    end
-    @albums=Album.all.sort_by{|a| a.artist}
-    erb :'albums/all'
   end
 
 
@@ -85,7 +90,6 @@ class AlbumController < ApplicationController
       elsif params["songs"].size!=album.songs.size
         album.songs=params["songs"].collect{|s| Song.find_or_create_by(id: s)}
       end
-
       album.save      
       redirect "/albums/#{album.id}"
     else
@@ -93,10 +97,7 @@ class AlbumController < ApplicationController
     end
   end
 
-  get '/albums/get-songs' do
-    "This is where I'll use mechanize"
 
-  end
 
   get '/albums/:id/spin' do
     if logged_in
@@ -109,7 +110,6 @@ class AlbumController < ApplicationController
 
 
   delete '/albums/:id/delete' do
-binding.pry
     if logged_in
       album=Album.find(params[:id])
       album.delete
