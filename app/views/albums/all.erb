@@ -31,7 +31,13 @@
           <% else %>
             <button><a href="/albums/<%=a.id%>/add">Add</a></button>
             <% end%></td>
-      <td><button><a href="http://www.discogs.com/search/?q=<%=a.title%>+<%=a.rel_id%>">OMG RECORD SHOPPING</a></button></td>
+      <td><button>
+          <% if a.alb_url %>
+            <a href="http://www.discogs.com/<%=a.alb_url%>">See on Discogs.com</a>
+          <% else %>
+            <a href="http://www.discogs.com/search/?q=<%=a.title%>+<%=a.rel_id%>">See on Discogs.com</a>
+          <% end %>
+          </button></td>
     </tr>
     <% end %>
   </table>

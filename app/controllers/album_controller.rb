@@ -16,11 +16,7 @@ class AlbumController < ApplicationController
   end
 
   get "/albums/new" do
-    if logged_in
-      erb :'albums/new'
-    else
-      erb :'fans/login', :locals=>{:message=>"You gotta be logged for that, bub."}
-    end
+    erb :'albums/new'
   end
 
   post '/albums' do
